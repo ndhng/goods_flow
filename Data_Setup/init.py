@@ -16,4 +16,6 @@ for i in range(1,number_of_warehouses):
 
 number_of_outbounds = 100
 number_of_inbounds = 100
+number_of_transfers = 20
+internal_transfer_days = 10
 
