@@ -5,12 +5,12 @@ number_of_warehouses = 4
 start_date = date(2025,1,1)
 
 item_codes = []
-for i in range(1,number_of_items):
+for i in range(1,number_of_items+1):
     zeros = "0"*(3-len(str(i)))
     item_codes.append("Item"+zeros+str(i))
 
 warehouse_codes = []
-for i in range(1,number_of_warehouses):
+for i in range(1,number_of_warehouses+1):
     zeros = "0"*(3-len(str(i)))
     warehouse_codes.append("WH"+zeros+str(i))
 
