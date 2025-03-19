@@ -12,7 +12,12 @@ inputs = choices(manufacturing_goods, k=number_of_manufacturing_goods // 2 + 1)
 # print(inputs)
 
 manu_requirements = []
+manu_req_code_number = 1
+
 for input in inputs:
+    manu_req_code = 'MR' + '0'*(3- len(str(manu_req_code_number))) + str(manu_req_code_number)
+    manu_req_code_number += 1
+
     remainder = manufacturing_goods.copy()
     remainder.remove(input) # only prevents an item manufacturing itself
     output = choice(remainder)
@@ -21,9 +26,11 @@ for input in inputs:
     input_weight = randint(1, 10)*10
     output_weight = int(input_weight * manufacturing_ratio)
     # print(f'To produce {output_weight}kg of {output}, requires {input_weight}kg of {input}')
-    manu_requirements.append([input, input_weight, output, output_weight])
+    manu_requirements.append([manu_req_code, input, input_weight, output, output_weight])
 
-df = pd.DataFrame(manu_requirements, columns = ["Input_Code" ,"Input_Weight","Output_Code", "Output_Weight"]).to_csv('../Datasets/Manufacturing_Requirements.csv', index=False)
+manufacturing_requirements = pd.DataFrame(manu_requirements, columns = ["Manufacturing_Code", "Input_Code" ,"Input_Weight","Output_Code", "Output_Weight"])
+
+manufacturing_requirements.to_csv('../Datasets/Manufacturing_Requirements.csv', index=False)
 
 if __name__ == "__main__":
     test = pd.read_csv('../Datasets/Manufacturing_Requirements.csv')
