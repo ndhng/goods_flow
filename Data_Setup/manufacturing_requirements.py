@@ -1,40 +1,75 @@
 from random import choices, choice, randint
-
 import pandas as pd
 
 from Data_Setup.init import item_codes, number_of_items
 from Data_Setup.shared_func import generate_code
 
-number_of_manufacturing_goods = number_of_items
-manufacturing_goods = item_codes[: number_of_manufacturing_goods + number_of_manufacturing_goods % 2]
-# print(manufacturing_goods)
 
-inputs = choices(manufacturing_goods, k=number_of_manufacturing_goods // 2 + 1)
-# print(inputs)
+def generate_manufacturing_requirements(num_items=None, output_path='../Datasets/Manufacturing_Requirements.csv'):
+    """
+    Generate manufacturing requirements data and save it to a CSV file.
 
-manu_requirements = []
-manu_req_code_number = 1
+    Parameters:
+    -----------
+    num_items : int, optional
+        Number of items to consider for manufacturing. If None, uses the value from init.
+    output_path : str, optional
+        Path where the CSV file will be saved.
 
-for manu_input in inputs:
-    # manu_req_code = 'MR' + '0'*(3- len(str(manu_req_code_number))) + str(manu_req_code_number)
-    # manu_req_code_number += 1
+    Returns:
+    --------
+    pandas.DataFrame
+        The generated manufacturing requirements data.
+    """
+    # Use the value from init if not specified
+    if num_items is None:
+        num_items = number_of_items
 
-    manu_req_code, manu_req_code_number = generate_code('MR', 3, manu_req_code_number)
+    number_of_manufacturing_goods = num_items
+    manufacturing_goods = item_codes[: number_of_manufacturing_goods + number_of_manufacturing_goods % 2]
 
-    remainder = manufacturing_goods.copy()
-    remainder.remove(manu_input) # only prevents an item manufacturing itself
-    output = choice(remainder)
+    inputs = choices(manufacturing_goods, k=number_of_manufacturing_goods // 2 + 1)
 
-    manufacturing_ratio = randint(6, 10)*0.1
-    input_weight = randint(1, 10)*10
-    output_weight = int(input_weight * manufacturing_ratio)
-    # print(f'To produce {output_weight}kg of {output}, requires {input_weight}kg of {input}')
-    manu_requirements.append([manu_req_code, manu_input, input_weight, output, output_weight])
+    manu_requirements = []
+    manu_req_code_number = 1
 
-manufacturing_requirements = pd.DataFrame(manu_requirements, columns = ["Manufacturing_Code", "Input_Code" ,"Input_Weight","Output_Code", "Output_Weight"])
+    for manu_input in inputs:
+        manu_req_code, manu_req_code_number = generate_code('MR', 3, manu_req_code_number)
 
-manufacturing_requirements.to_csv('../Datasets/Manufacturing_Requirements.csv', index=False)
+        remainder = manufacturing_goods.copy()
+        remainder.remove(manu_input)  # only prevents an item manufacturing itself
+        output = choice(remainder)
+
+        manufacturing_ratio = randint(6, 10) * 0.1
+        input_weight = randint(1, 10) * 10
+        output_weight = int(input_weight * manufacturing_ratio)
+
+        manu_requirements.append([
+            manu_req_code,
+            manu_input,
+            input_weight,
+            output,
+            output_weight
+        ])
+
+    df = pd.DataFrame(manu_requirements, columns=[
+        "Manufacturing_Code",
+        "Input_Code",
+        "Input_Weight",
+        "Output_Code",
+        "Output_Weight"
+    ])
+
+    # Save to CSV
+    df.to_csv(output_path, index=False)
+
+    return df
+
+
+# This allows other modules to import the DataFrame directly
+manufacturing_requirements = generate_manufacturing_requirements()
 
 if __name__ == "__main__":
+    # When run directly, print the generated data
     test = pd.read_csv('../Datasets/Manufacturing_Requirements.csv')
     print(test)

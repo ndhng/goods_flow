@@ -3,32 +3,46 @@ from random import randint
 
 from init import item_codes, warehouse_codes, start_date
 
-# Initialize how many days of historical stock is saved in this file
-number_of_days_history = 10
 
-# Create the list of dates that will be included in this file
-dates = []
-for i in range(number_of_days_history):
-    dates.append(start_date - pd.Timedelta(days=i+1))
+def generate_stock_table(days_history=10, output_path='../Datasets/Available_Stock.csv'):
+    """
+    Generate a table of available stock and save it to a CSV file.
 
-# print(item_codes)
-# print(warehouse_codes)
-# print(dates)
+    Parameters:
+    -----------
+    days_history : int
+        Number of days of historical stock data to generate.
+    output_path : str
+        Path where the CSV file will be saved.
 
-dataset = []
+    Returns:
+    --------
+    pandas.DataFrame
+        The generated stock data.
+    """
+    # Create the list of dates that will be included in this file
+    dates = []
+    for i in range(days_history):
+        dates.append(start_date - pd.Timedelta(days=i + 1))
 
-for date in dates:
-    for warehouse in warehouse_codes:
-        for item in item_codes:
-            dataset.append([date, warehouse, item, randint(1,100)*100])
+    dataset = []
 
-df = pd.DataFrame(dataset, columns=['Date', 'Warehouse_Code', 'Item_Code', 'Stock_Amount'])
-df['Date'] = pd.to_datetime(df['Date'])
+    for date in dates:
+        for warehouse in warehouse_codes:
+            for item in item_codes:
+                dataset.append([date, warehouse, item, randint(1, 100) * 100])
 
-# print(df)
+    df = pd.DataFrame(dataset, columns=['Date', 'Warehouse_Code', 'Item_Code', 'Stock_Amount'])
+    df['Date'] = pd.to_datetime(df['Date'])
 
-df.to_csv('../Datasets/Available_Stock.csv', index=False)
+    # Save to CSV
+    df.to_csv(output_path, index=False)
+
+    return df
+
 
 if __name__ == "__main__":
+    # When run directly, generate the stock table and print a sample
+    df = generate_stock_table()
     test = pd.read_csv('../Datasets/Available_Stock.csv')
     print(test)
