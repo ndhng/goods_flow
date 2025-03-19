@@ -1,4 +1,4 @@
-from random import randint, choice, choices
+from random import randint, choice
 import pandas as pd
 
 from Data_Setup.manufacturing_requirements import manufacturing_requirements
