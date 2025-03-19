@@ -2,12 +2,12 @@ from random import randint, choice
 import pandas as pd
 
 from Data_Setup.manufacturing_requirements import generate_manufacturing_requirements, manufacturing_requirements
-from Data_Setup.init import (warehouse_codes, number_of_production_orders, start_date,
-                             manufacturing_frequency, max_no_production_days, max_production_period)
+from init import (warehouse_codes, number_of_production_orders, start_date,
+                  manufacturing_frequency, max_no_production_days, max_production_period)
 from Data_Setup.shared_func import generate_code, next_date
 
 
-def generate_manufacturing_plan(num_production_orders=None, output_path='../Datasets/Manufacturing_Plan.csv',
+def generate_manufacturing_plan(num_production_orders=None, output_path='./Datasets/Manufacturing_Plan.csv',
                                 regenerate_requirements=False, requirements_path=None):
     """
     Generate manufacturing plan data and save it to a CSV file.
@@ -97,5 +97,5 @@ def generate_manufacturing_plan(num_production_orders=None, output_path='../Data
 if __name__ == "__main__":
     # When run directly, generate the manufacturing plan data and print it
     df = generate_manufacturing_plan()
-    test = pd.read_csv('../Datasets/Manufacturing_Plan.csv')
+    test = pd.read_csv('./Datasets/Manufacturing_Plan.csv')
     print(test)

@@ -1,13 +1,13 @@
 import pandas as pd
 from random import choice, randint
 
-from Data_Setup.init import (item_codes, warehouse_codes, start_date,
-                             number_of_outbounds, outbound_frequency,
-                             max_no_outbound_days, combined_SO_frequency)
+from init import (item_codes, warehouse_codes, start_date,
+                  number_of_outbounds, outbound_frequency,
+                  max_no_outbound_days, combined_SO_frequency)
 from Data_Setup.shared_func import next_date, generate_code_item
 
 
-def generate_outbound_data(num_outbounds=None, output_path='../Datasets/Outbound.csv'):
+def generate_outbound_data(num_outbounds=None, output_path='./Datasets/Outbound.csv'):
     """
     Generate outbound order data and save it to a CSV file.
 
@@ -77,5 +77,5 @@ def generate_outbound_data(num_outbounds=None, output_path='../Datasets/Outbound
 if __name__ == "__main__":
     # When run directly, generate the outbound data and print it
     df = generate_outbound_data()
-    test = pd.read_csv('../Datasets/Outbound.csv')
+    test = pd.read_csv('./Datasets/Outbound.csv')
     print(test)

@@ -1,16 +1,16 @@
 import pandas as pd
 from random import randint, choice
 
-from Data_Setup.init import (item_codes, warehouse_codes, start_date,
-                             number_of_transfers,
-                             internal_transfer_days,
-                             transfer_frequency,
-                             combined_IT_frequency,
-                             max_no_IT_days)
+from init import (item_codes, warehouse_codes, start_date,
+                  number_of_transfers,
+                  internal_transfer_days,
+                  transfer_frequency,
+                  combined_IT_frequency,
+                  max_no_IT_days)
 from Data_Setup.shared_func import next_date, generate_code_item
 
 
-def generate_internal_transfers(num_transfers=None, output_path='../Datasets/Internal_Transfers.csv'):
+def generate_internal_transfers(num_transfers=None, output_path='./Datasets/Internal_Transfers.csv'):
     """
     Generate internal transfer data and save it to a CSV file.
 
@@ -80,5 +80,5 @@ def generate_internal_transfers(num_transfers=None, output_path='../Datasets/Int
 if __name__ == "__main__":
     # When run directly, generate the internal transfer data and print it
     df = generate_internal_transfers()
-    test = pd.read_csv('../Datasets/Internal_Transfers.csv')
+    test = pd.read_csv('./Datasets/Internal_Transfers.csv')
     print(test)

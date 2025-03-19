@@ -1,11 +1,11 @@
 from random import choices, choice, randint
 import pandas as pd
 
-from Data_Setup.init import item_codes, number_of_items
+from init import item_codes, number_of_items
 from Data_Setup.shared_func import generate_code
 
 
-def generate_manufacturing_requirements(num_items=None, output_path='../Datasets/Manufacturing_Requirements.csv'):
+def generate_manufacturing_requirements(num_items=None, output_path='./Datasets/Manufacturing_Requirements.csv'):
     """
     Generate manufacturing requirements data and save it to a CSV file.
 
@@ -71,5 +71,5 @@ manufacturing_requirements = generate_manufacturing_requirements()
 
 if __name__ == "__main__":
     # When run directly, print the generated data
-    test = pd.read_csv('../Datasets/Manufacturing_Requirements.csv')
+    test = pd.read_csv('./Datasets/Manufacturing_Requirements.csv')
     print(test)

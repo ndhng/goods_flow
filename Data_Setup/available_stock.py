@@ -4,7 +4,7 @@ from random import randint
 from init import item_codes, warehouse_codes, start_date
 
 
-def generate_stock_table(days_history=10, output_path='../Datasets/Available_Stock.csv'):
+def generate_stock_table(days_history=10, output_path='./Datasets/Available_Stock.csv'):
     """
     Generate a table of available stock and save it to a CSV file.
 
@@ -44,5 +44,5 @@ def generate_stock_table(days_history=10, output_path='../Datasets/Available_Sto
 if __name__ == "__main__":
     # When run directly, generate the stock table and print a sample
     df = generate_stock_table()
-    test = pd.read_csv('../Datasets/Available_Stock.csv')
+    test = pd.read_csv('./Datasets/Available_Stock.csv')
     print(test)

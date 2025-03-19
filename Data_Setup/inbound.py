@@ -1,13 +1,13 @@
 import pandas as pd
 from random import choice, randint
 
-from Data_Setup.init import (item_codes, warehouse_codes, start_date,
-                             number_of_inbounds, inbound_frequency,
-                             max_no_inbound_days, combined_PO_frequency)
+from init import (item_codes, warehouse_codes, start_date,
+                  number_of_inbounds, inbound_frequency,
+                  max_no_inbound_days, combined_PO_frequency)
 from Data_Setup.shared_func import next_date, generate_code_item
 
 
-def generate_inbound_data(num_inbounds=None, output_path='../Datasets/Inbound.csv'):
+def generate_inbound_data(num_inbounds=None, output_path='./Datasets/Inbound.csv'):
     """
     Generate inbound data and save it to a CSV file.
 
@@ -70,5 +70,5 @@ def generate_inbound_data(num_inbounds=None, output_path='../Datasets/Inbound.cs
 if __name__ == "__main__":
     # When run directly, generate the inbound data and print it
     df = generate_inbound_data()
-    test = pd.read_csv('../Datasets/Inbound.csv')
+    test = pd.read_csv('./Datasets/Inbound.csv')
     print(test)

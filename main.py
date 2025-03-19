@@ -1,9 +1,9 @@
-from available_stock import generate_stock_table
-from inbound import generate_inbound_data
-from internal_transfer import generate_internal_transfers
-from manufacturing_requirements import generate_manufacturing_requirements
-from manufacturing_plan import generate_manufacturing_plan
-from outbound import generate_outbound_data
+from Data_Setup.available_stock import generate_stock_table
+from Data_Setup.inbound import generate_inbound_data
+from Data_Setup.internal_transfer import generate_internal_transfers
+from Data_Setup.manufacturing_requirements import generate_manufacturing_requirements
+from Data_Setup.manufacturing_plan import generate_manufacturing_plan
+from Data_Setup.outbound import generate_outbound_data
 
 
 def main():
