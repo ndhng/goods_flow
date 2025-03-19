@@ -12,3 +12,6 @@ __pycache__/
 
 # Ignore generated dataset files
 Datasets/
+
+# Ignore output table
+/Dashboard.csv
