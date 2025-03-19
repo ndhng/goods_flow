@@ -1,0 +1,14 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore PyCharm settings
+.idea/
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Python bytecode cache
+__pycache__/
+
+# Ignore generated dataset files
+Datasets/
