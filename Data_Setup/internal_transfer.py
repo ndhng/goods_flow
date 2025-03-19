@@ -61,5 +61,6 @@ df["Date_Arrival"] = pd.to_datetime(df["Date_Arrival"])
 os.makedirs('../Datasets', exist_ok=True)
 df.to_csv('../Datasets/Internal_Transfers.csv', index=False)
 
-test = pd.read_csv('../Datasets/Internal_Transfers.csv')
-print(test)
+if __name__ == "__main__":
+    test = pd.read_csv('../Datasets/Internal_Transfers.csv')
+    print(test)
