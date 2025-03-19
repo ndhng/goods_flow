@@ -31,5 +31,6 @@ df['Date'] = pd.to_datetime(df['Date'])
 os.makedirs('../Datasets', exist_ok=True)
 df.to_csv('../Datasets/Available_Stock.csv', index=False)
 
-test = pd.read_csv('../Datasets/Available_Stock.csv')
-print(test)
+if __name__ == "__main__":
+    test = pd.read_csv('../Datasets/Available_Stock.csv')
+    print(test)
