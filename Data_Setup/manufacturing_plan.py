@@ -4,6 +4,7 @@ import pandas as pd
 from Data_Setup.manufacturing_requirements import manufacturing_requirements
 from Data_Setup.init import (warehouse_codes, number_of_production_orders, start_date,
                              manufacturing_frequency, max_no_production_days, max_production_period)
+from Data_Setup.shared_func import generate_code, next_date
 
 manu_req_index = manufacturing_requirements.shape[0]
 
@@ -12,8 +13,7 @@ current_date = start_date
 production_order_code_number = 1
 
 for i in range(number_of_production_orders):
-    production_order_code = 'PrO' + "0"*(3-len(str(production_order_code_number))) + str(production_order_code_number)
-    production_order_code_number += 1
+    production_order_code, production_order_code_number = generate_code('PrO',3,production_order_code_number)
 
     manu_index = randint(0, manu_req_index - 1)
     row = manufacturing_requirements.iloc[manu_index]
@@ -27,8 +27,8 @@ for i in range(number_of_production_orders):
     input_weight = row['Input_Weight']*mult
     output_weight = row['Output_Weight']*mult
 
-    if choices([True, False], [manufacturing_frequency, 1-manufacturing_frequency])[0]:
-        current_date = current_date + pd.DateOffset(days=randint(1, max_no_production_days))
+    move = next_date(manufacturing_frequency, max_no_production_days)
+    current_date = current_date + pd.DateOffset(days=move)
 
     finished_date = current_date + pd.DateOffset(days=randint(0, max_production_period))
 

@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 from random import randint
 
@@ -28,7 +27,6 @@ df['Date'] = pd.to_datetime(df['Date'])
 
 # print(df)
 
-os.makedirs('../Datasets', exist_ok=True)
 df.to_csv('../Datasets/Available_Stock.csv', index=False)
 
 if __name__ == "__main__":

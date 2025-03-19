@@ -3,6 +3,7 @@ from random import choices, choice, randint
 import pandas as pd
 
 from Data_Setup.init import item_codes, number_of_items
+from Data_Setup.shared_func import generate_code
 
 number_of_manufacturing_goods = number_of_items
 manufacturing_goods = item_codes[: number_of_manufacturing_goods + number_of_manufacturing_goods % 2]
@@ -14,19 +15,21 @@ inputs = choices(manufacturing_goods, k=number_of_manufacturing_goods // 2 + 1)
 manu_requirements = []
 manu_req_code_number = 1
 
-for input in inputs:
-    manu_req_code = 'MR' + '0'*(3- len(str(manu_req_code_number))) + str(manu_req_code_number)
-    manu_req_code_number += 1
+for manu_input in inputs:
+    # manu_req_code = 'MR' + '0'*(3- len(str(manu_req_code_number))) + str(manu_req_code_number)
+    # manu_req_code_number += 1
+
+    manu_req_code, manu_req_code_number = generate_code('MR', 3, manu_req_code_number)
 
     remainder = manufacturing_goods.copy()
-    remainder.remove(input) # only prevents an item manufacturing itself
+    remainder.remove(manu_input) # only prevents an item manufacturing itself
     output = choice(remainder)
 
     manufacturing_ratio = randint(6, 10)*0.1
     input_weight = randint(1, 10)*10
     output_weight = int(input_weight * manufacturing_ratio)
     # print(f'To produce {output_weight}kg of {output}, requires {input_weight}kg of {input}')
-    manu_requirements.append([manu_req_code, input, input_weight, output, output_weight])
+    manu_requirements.append([manu_req_code, manu_input, input_weight, output, output_weight])
 
 manufacturing_requirements = pd.DataFrame(manu_requirements, columns = ["Manufacturing_Code", "Input_Code" ,"Input_Weight","Output_Code", "Output_Weight"])
 
