@@ -1,10 +1,10 @@
-import os
 import pandas as pd
-from random import choices, choice, randint
+from random import choice, randint
 
 from Data_Setup.init import (item_codes, warehouse_codes, start_date,
                              number_of_outbounds, outbound_frequency,
                              max_no_outbound_days, combined_SO_frequency)
+from Data_Setup.shared_func import next_date, generate_code_item
 
 # Initialize moving constants
 current_date = start_date
@@ -14,20 +14,13 @@ current_SO_item_number = 1
 outbounds = []
 for i in range(number_of_outbounds):
 
-    # New date?
-    if choices([True,False], [outbound_frequency, 1 - outbound_frequency])[0]:
-        current_date = current_date + pd.DateOffset(days = randint(1,max_no_outbound_days))
+    move = next_date(outbound_frequency, max_no_outbound_days)
+    current_date = current_date + pd.Timedelta(days=move)
 
-    # New SO?
-    if choices([True,False], [combined_SO_frequency, 1 - combined_SO_frequency])[0]:
-        current_SO_number += 1
-        current_SO_item_number = 1
-
-    zeros = "0"*(3-len(str(current_SO_number)))
-    SO_number = 'SO' + zeros + str(current_SO_number)
-
-    SO_item_number = SO_number + '-' + str(current_SO_item_number)
-    current_SO_item_number += 1
+    SO_item_number, SO_number, current_SO_number, current_SO_item_number = generate_code_item("SO", 3,
+                                                                                              current_SO_number,
+                                                                                              current_SO_item_number,
+                                                                                              combined_SO_frequency)
 
     # Select a random Item & Warehouse for outbound
     item_code = choice(item_codes)
@@ -41,7 +34,6 @@ df["Date"] = pd.to_datetime(df["Date"])
 
 # print(df)
 
-os.makedirs('../Datasets', exist_ok=True)
 df.to_csv('../Datasets/Outbound.csv', index=False)
 
 if __name__ == "__main__":

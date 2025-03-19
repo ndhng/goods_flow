@@ -33,5 +33,8 @@ transfer_frequency = 0.95
 combined_IT_frequency = 0.9
 max_no_IT_days = 10
 
-# Production Plan table constants
+# Manufacturing Plan table constants
 number_of_production_orders = 50
+manufacturing_frequency = 0.3
+max_no_production_days = 10
+max_production_period = 3
