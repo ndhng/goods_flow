@@ -66,9 +66,6 @@ def generate_manufacturing_requirements(num_items=None, output_path='./Datasets/
     return df
 
 
-# This allows other modules to import the DataFrame directly
-manufacturing_requirements = generate_manufacturing_requirements()
-
 if __name__ == "__main__":
     # When run directly, print the generated data
     test = pd.read_csv('./Datasets/Manufacturing_Requirements.csv')

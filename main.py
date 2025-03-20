@@ -24,7 +24,7 @@ def generate_all_datasets() -> None:
     This includes manufacturing plans, stock tables, inbound/outbound data,
     and internal transfers.
     """
-    generate_manufacturing_plan(regenerate_requirements=True)
+    generate_manufacturing_plan()
     generate_stock_table()
     generate_inbound_data()
     generate_internal_transfers()
